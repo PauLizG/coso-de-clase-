@@ -3,6 +3,8 @@ input.onPinPressed(TouchPin.P0, function () {
 })
 let H = game.createSprite(0, 2)
 let V = game.createSprite(randint(0, 4), randint(0, 4))
+let V2 = game.createSprite(randint(0, 4), randint(0, 4))
+let V3 = game.createSprite(randint(0, 4), randint(0, 4))
 H.set(LedSpriteProperty.Blink, 450)
 basic.forever(function () {
     while (input.buttonIsPressed(Button.A)) {
@@ -22,11 +24,20 @@ basic.forever(function () {
         basic.pause(200)
     }
     if (H.isTouching(V)) {
-        music.startMelody(music.builtInMelody(Melodies.Wedding), MelodyOptions.OnceInBackground)
+        V.delete()
+    }
+    if (H.isTouching(V2)) {
+        V2.delete()
+    }
+    if (H.isTouching(V3)) {
+        V3.delete()
+    }
+    if (V.isDeleted() && (V2.isDeleted() && V3.isDeleted())) {
+        music.startMelody(music.builtInMelody(Melodies.Entertainer), MelodyOptions.OnceInBackground)
         H.delete()
         V.delete()
         for (let index = 0; index < 3; index++) {
-            basic.showIcon(IconNames.Heart)
+            basic.showIcon(IconNames.Yes)
         }
         basic.showString("GAME OVER")
     }
